@@ -1,6 +1,6 @@
 # Codepan coding challenge
 
-Hello, 
+Hello Eugen, 
 
 thanks again for taking the time to participate in our coding challenge! :raised_hands:
 
