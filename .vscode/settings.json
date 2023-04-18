@@ -1,0 +1,12 @@
+{
+  "python.formatting.provider": "black",
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.testing.pytestEnabled": true,
+  // Must remain unset while this issue is open:
+  // https://github.com/microsoft/vscode-python/issues/7042
+  // "python.sortImports.path": "isort",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
+}

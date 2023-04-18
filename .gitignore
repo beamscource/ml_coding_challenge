@@ -1,0 +1,23 @@
+# Virtual env directory
+.venv
+
+# Rope project
+.ropeproject
+
+# Caches
+.mypy_cache
+.pytest_cache
+
+# Egg info
+*.egg-info
+
+# Data directory
+/data/
+
+# Coverage
+.coverage
+cov.xml
+htmlcov/
+
+# Python dotenv
+.env
