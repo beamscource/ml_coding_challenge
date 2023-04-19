@@ -1,6 +1,7 @@
-from PIL import Image
+#from PIL import Image
 from torchvision import transforms
 from typing import Optional
+#import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -37,11 +38,11 @@ def set_up_model():
 
     return model
 
-def predict(data: Optional[list] = None) -> dict:
+def predict(image) -> dict:
     """A function that takes an image and runs a classification on it.
 
     Args:
-        data (list): prediction data
+        image: input image
 
     Returns:
         dict: predicted probabilities for the categories Boot, Sandal, Shoe
@@ -49,7 +50,7 @@ def predict(data: Optional[list] = None) -> dict:
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    # transform input image
+    # transform the input image
     transform_function = transforms.Compose([
         transforms.Resize((64, 64)),
         transforms.ToTensor(),
@@ -57,24 +58,17 @@ def predict(data: Optional[list] = None) -> dict:
                             std=[0.229, 0.224, 0.225] )
         ])
 
-    image = Image.open("data/test/sandal/Sandal (948).jpg")
+    #image = np.array(Image.open(file.file))
+    #image = Image.open("data/test/sandal/Sandal (948).jpg")
     image = transform_function(image).to(device)
     image = torch.unsqueeze(image, 0)
 
     model = set_up_model()
     model.eval()
     probabilities = F.softmax(model(image), dim=1).cpu().detach().numpy()[0]
-    test = {
-        "Boot": f'{probabilities[0]:.2f}',
-        "Sandal": f'{probabilities[1]:.2f}',
-        "Shoe": f'{probabilities[2]:.2f}',
-    }
-    breakpoint()
+
     return {
         "Boot": f'{probabilities[0]:.2f}',
         "Sandal": f'{probabilities[1]:.2f}',
         "Shoe": f'{probabilities[2]:.2f}',
     }
-
-data = []
-predict(data)
