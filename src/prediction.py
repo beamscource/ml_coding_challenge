@@ -4,12 +4,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch import Tensor
 
-
 def set_up_model() -> nn.Module:
     """A function to initialize the model and to load trained weights.
 
     Returns:
-        list: a PyTorch model
+        nn.Module: a PyTorch model
     """
 
     class SimpleNet(nn.Module):
