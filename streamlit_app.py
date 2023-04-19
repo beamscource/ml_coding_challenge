@@ -1,4 +1,3 @@
-from distutils.command.upload import upload
 import streamlit as st
 import requests
 from requests_toolbelt.multipart.encoder import MultipartEncoder
@@ -17,5 +16,4 @@ if uploaded_file:
     req = requests.post(
         "http://localhost:8000/score", data=m, headers={"Content-Type": m.content_type}, timeout=8000
     )
-    #req = requests.post("http://localhost:8000/score", files=files)
     st.text(req.json())
