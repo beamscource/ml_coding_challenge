@@ -1,17 +1,15 @@
-#from PIL import Image
 from torchvision import transforms
-from typing import Optional
-#import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch import Tensor
 
 
-def set_up_model():
-    """A function to define the model and to load trained weights.
+def set_up_model() -> nn.Module:
+    """A function to initialize the model and to load trained weights.
 
     Returns:
-        dict: a PyTorch model
+        list: a PyTorch model
     """
 
     class SimpleNet(nn.Module):
@@ -27,28 +25,24 @@ def set_up_model():
             x = F.relu(self.fc2(x))
             x = self.fc3(x)
             return x
-    
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    
+
     # initialize the model and load weights
     model = SimpleNet()
     state_dict = torch.load("src/shoe_model.tar")
     model.load_state_dict(state_dict)
-    model.to(device)
 
     return model
 
-def predict(image) -> dict:
-    """A function that takes an image and runs a classification on it.
+def predict(image: Tensor) -> dict:
+    """A function that takes a tensor object of an image and runs a classification
+    on it.
 
     Args:
-        image: input image
+        image: input image converted to a tensor
 
     Returns:
-        dict: predicted probabilities for the categories Boot, Sandal, Shoe
+        dict: predicted probabilities for the categories boot, sandal, shoe
     """
-    
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # transform the input image
     transform_function = transforms.Compose([
@@ -57,15 +51,13 @@ def predict(image) -> dict:
         transforms.Normalize(mean=[0.485, 0.456, 0.406],
                             std=[0.229, 0.224, 0.225] )
         ])
-
-    #image = np.array(Image.open(file.file))
-    #image = Image.open("data/test/sandal/Sandal (948).jpg")
-    image = transform_function(image).to(device)
+    image = transform_function(image)
     image = torch.unsqueeze(image, 0)
 
+    # get prediction scores
     model = set_up_model()
     model.eval()
-    probabilities = F.softmax(model(image), dim=1).cpu().detach().numpy()[0]
+    probabilities = F.softmax(model(image), dim=1).detach().numpy()[0]
 
     return {
         "Boot": f'{probabilities[0]:.2f}',
