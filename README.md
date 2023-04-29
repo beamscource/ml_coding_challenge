@@ -1,11 +1,5 @@
-# Codepan coding challenge
+# ML coding challenge
 
-Hello Eugen, 
-
-thanks again for taking the time to participate in our coding challenge! :raised_hands:
-
----
-## Challenge
 Your challenge is to create a system that can identify whether a picture is a boot, a shoe or a sandal.  
 By doing so, you need to complete the following tasks:
 
@@ -17,7 +11,6 @@ By doing so, you need to complete the following tasks:
   - We've provided a simple REST-Api (`app.py`) which has a `/score`-Endpoint that should be used for getting predicitons
   - Right now this endpoint is just an empty shell that is calling an internal function just to return some dummy data without any regard to the actual Data
   - To complete this task you need to extend the `/score` endpoint, it should take an image file and return the predictions of your model whether it's a boot, shoe or sandal
-  - Feel free to change whatever necessary
 
 :arrow_forward: Create a small frontend application with streamlit
   - Please create an interface in which you can upload an image
